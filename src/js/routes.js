@@ -1,47 +1,52 @@
+import HomePage from "../pages/home.f7.html";
+import AboutPage from "../pages/about.f7.html";
+import FormPage from "../pages/form.f7.html";
+import CatalogPage from "../pages/catalog.f7.html";
+import ProductPage from "../pages/product.f7.html";
+import SettingsPage from "../pages/settings.f7.html";
 
-import HomePage from '../pages/home.f7.html';
-import AboutPage from '../pages/about.f7.html';
-import FormPage from '../pages/form.f7.html';
-import CatalogPage from '../pages/catalog.f7.html';
-import ProductPage from '../pages/product.f7.html';
-import SettingsPage from '../pages/settings.f7.html';
-
-import DynamicRoutePage from '../pages/dynamic-route.f7.html';
-import RequestAndLoad from '../pages/request-and-load.f7.html';
-import NotFoundPage from '../pages/404.f7.html';
+import DynamicRoutePage from "../pages/dynamic-route.f7.html";
+import RequestAndLoad from "../pages/request-and-load.f7.html";
+import NotFoundPage from "../pages/404.f7.html";
+import AllSongs from "../pages/all-songs.html";
 
 var routes = [
   {
-    path: '/',
+    path: "/",
     component: HomePage,
   },
   {
-    path: '/about/',
+    path: "/about/",
     component: AboutPage,
   },
   {
-    path: '/form/',
+    path: "/form/",
     component: FormPage,
   },
   {
-    path: '/catalog/',
+    path: "/catalog/",
     component: CatalogPage,
   },
   {
-    path: '/product/:id/',
+    path: "/product/:id/",
     component: ProductPage,
   },
   {
-    path: '/settings/',
+    path: "/settings/",
     component: SettingsPage,
+  },
+  {
+    path: "/all-songs/",
+    component: AllSongs,
+    url: "./pages/about.html",
   },
 
   {
-    path: '/dynamic-route/blog/:blogId/post/:postId/',
+    path: "/dynamic-route/blog/:blogId/post/:postId/",
     component: DynamicRoutePage,
   },
   {
-    path: '/request-and-load/user/:userId/',
+    path: "/request-and-load/user/:userId/",
     async: function (routeTo, routeFrom, resolve, reject) {
       // Router instance
       var router = this;
@@ -59,19 +64,19 @@ var routes = [
       setTimeout(function () {
         // We got user data from request
         var user = {
-          firstName: 'Vladimir',
-          lastName: 'Kharlampidi',
-          about: 'Hello, i am creator of Framework7! Hope you like it!',
+          firstName: "Vladimir",
+          lastName: "Kharlampidi",
+          about: "Hello, i am creator of Framework7! Hope you like it!",
           links: [
             {
-              title: 'Framework7 Website',
-              url: 'http://framework7.io',
+              title: "Framework7 Website",
+              url: "http://framework7.io",
             },
             {
-              title: 'Framework7 Forum',
-              url: 'http://forum.framework7.io',
+              title: "Framework7 Forum",
+              url: "http://forum.framework7.io",
             },
-          ]
+          ],
         };
         // Hide Preloader
         app.preloader.hide();
@@ -84,14 +89,14 @@ var routes = [
           {
             context: {
               user: user,
-            }
+            },
           }
         );
       }, 1000);
     },
   },
   {
-    path: '(.*)',
+    path: "(.*)",
     component: NotFoundPage,
   },
 ];
