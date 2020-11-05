@@ -1,14 +1,19 @@
 import HomePage from "../pages/home.f7.html";
+import SongsPage from "../pages/songs.f7.html";
+import FavoritePage from "../pages/favorite.f7.html";
+import ActivityPage from "../pages/activity.f7.html";
+import SettingsPage from "../pages/settings.f7.html";
 import AboutPage from "../pages/about.f7.html";
+import SingleSongPage from "../pages/single-activity.f7.html";
+import SingleActivityPage from "../pages/single-activity.f7.html";
+import AddActivityPage from "../pages/add-activity.f7.html";
+
 import FormPage from "../pages/form.f7.html";
 import CatalogPage from "../pages/catalog.f7.html";
 import ProductPage from "../pages/product.f7.html";
-import SettingsPage from "../pages/settings.f7.html";
-
 import DynamicRoutePage from "../pages/dynamic-route.f7.html";
 import RequestAndLoad from "../pages/request-and-load.f7.html";
 import NotFoundPage from "../pages/404.f7.html";
-import AllSongs from "../pages/all-songs.html";
 
 var routes = [
   {
@@ -16,8 +21,36 @@ var routes = [
     component: HomePage,
   },
   {
+    path: "/songs/",
+    component: SongsPage,
+  },
+  {
+    path: "/favorite/",
+    component: FavoritePage,
+  },
+  {
+    path: "/activity/",
+    component: ActivityPage,
+  },
+  {
+    path: "/settings/",
+    component: SettingsPage,
+  },
+  {
     path: "/about/",
     component: AboutPage,
+  },
+  {
+    path: "/single-song/",
+    component: SingleSongPage,
+  },
+  {
+    path: "/single-activity/",
+    component: SingleActivityPage,
+  },
+  {
+    path: "/add-activity/",
+    component: AddActivityPage,
   },
   {
     path: "/form/",
@@ -30,15 +63,6 @@ var routes = [
   {
     path: "/product/:id/",
     component: ProductPage,
-  },
-  {
-    path: "/settings/",
-    component: SettingsPage,
-  },
-  {
-    path: "/all-songs/",
-    component: AllSongs,
-    url: "./pages/about.html",
   },
 
   {
