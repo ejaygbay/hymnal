@@ -1,12 +1,9 @@
 import HomePage from "../pages/home.f7.html";
 import SongsPage from "../pages/songs.f7.html";
 import FavoritePage from "../pages/favorite.f7.html";
-import ActivityPage from "../pages/activity.f7.html";
 import SettingsPage from "../pages/settings.f7.html";
 import AboutPage from "../pages/about.f7.html";
 import SingleSongPage from "../pages/single-song.f7.html";
-import SingleActivityPage from "../pages/single-activity.f7.html";
-import AddActivityPage from "../pages/add-activity.f7.html";
 
 import FormPage from "../pages/form.f7.html";
 import CatalogPage from "../pages/catalog.f7.html";
@@ -29,10 +26,6 @@ var routes = [
     component: FavoritePage,
   },
   {
-    path: "/activity/",
-    component: ActivityPage,
-  },
-  {
     path: "/settings/",
     component: SettingsPage,
   },
@@ -43,14 +36,6 @@ var routes = [
   {
     path: "/single-song/",
     component: SingleSongPage,
-  },
-  {
-    path: "/single-activity/",
-    component: SingleActivityPage,
-  },
-  {
-    path: "/add-activity/",
-    component: AddActivityPage,
   },
   {
     path: "/form/",
