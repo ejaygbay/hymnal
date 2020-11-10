@@ -4,7 +4,7 @@ import FavoritePage from "../pages/favorite.f7.html";
 import ActivityPage from "../pages/activity.f7.html";
 import SettingsPage from "../pages/settings.f7.html";
 import AboutPage from "../pages/about.f7.html";
-import SingleSongPage from "../pages/single-activity.f7.html";
+import SingleSongPage from "../pages/single-song.f7.html";
 import SingleActivityPage from "../pages/single-activity.f7.html";
 import AddActivityPage from "../pages/add-activity.f7.html";
 
