@@ -32,7 +32,7 @@
                   <i class="f7-icons">heart</i>
                 </a>
                 <a href="#" class="tab-link tab-link-active">
-                  <i class="f7-icons">play</i>
+                  <i class="f7-icons" onclick="play()">play</i>
                 </a>
                 <!-- <a href="#" class="tab-link">
                   <i class="f7-icons">square_pencil</i>
@@ -46,6 +46,20 @@
 
     <!-- Main page content -->
     <div class="page-content">
+      <img src="./framework7.png" alt="Img goes here" />
+
+      <audio src="./OurHelp.mp3">O God In Ages</audio>
+      <audio src="./OurHelp.mp3">Faith Of Our Father</audio>
+
+      <audio controls>
+        <!-- <source
+        src="../assets/mp3-files/Faith_Of_Our_Fathers-St_Catherine.mp3"
+        type="audio/ogg"
+      /> -->
+        <source src="../assets/musicFiles/Faith.mp3" />
+        Your browser does not support the audio element.
+      </audio>
+
       <!-- Block Title -->
       <div class="block-title">Stanza 1</div>
       <div class="block">
@@ -87,21 +101,11 @@
         </p>
       </div>
     </div>
-    <!-- <div class="toolbar tabbar toolbar-bottom" style="position: fixed">
-      <div class="toolbar-inner">
-        <a href="#" class="tab-link">
-          <i class="f7-icons">heart</i>
-        </a>
-        <a href="#" class="tab-link tab-link-active">
-          <i class="f7-icons">play</i>
-        </a>
-        <a href="#" class="tab-link">
-          <i class="f7-icons">square_pencil</i>
-        </a>
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
   export default {};
+  function play() {
+    alert("Ok");
+  }
 </script>
