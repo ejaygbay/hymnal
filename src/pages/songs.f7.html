@@ -21,167 +21,7 @@
     <!-- Main page content -->
     <div class="page-content">
       <div class="list">
-        <ol>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" onclick="playMe(event)" class="play"
-                  >play</i
-                >
-                <audio
-                  src="../static/musicFiles/Faith.mp3"
-                  id="when-we-all"
-                ></audio>
-              </div>
-            </div>
-          </li>
-          <!-- <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play" id="play">play</i>
-              </div>
-            </div>
-          </li> -->
-        </ol>
+        <ol></ol>
       </div>
     </div>
   </div>
@@ -257,7 +97,8 @@
           </a>
           <div class="item-media">
             <i class="f7-icons">heart</i>
-            <i class="f7-icons play" id="${audio_id}-play">play</i>
+            <i class="f7-icons play" id="${audio_id}-play">play_circle</i>
+            <i class="f7-icons stop" id="${audio_id}-stop" style="display:none">stop_circle</i>
             <audio
               src="${music_file}" id="${audio_id}"></audio>
           </div>
@@ -271,8 +112,27 @@
 
     $$(".play").on("click", function (e) {
       let play_btn_id = e.target.id;
+      document
+        .getElementById(play_btn_id)
+        .setAttribute("style", "display: none");
       play_btn_id = play_btn_id.split("-").slice(0, -1).join("-");
+      document
+        .getElementById(`${play_btn_id}-stop`)
+        .setAttribute("style", "display: block");
       document.getElementById(play_btn_id).play();
+    });
+
+    $$(".stop").on("click", function (e) {
+      let stop_btn_id = e.target.id;
+      document
+        .getElementById(stop_btn_id)
+        .setAttribute("style", "display: none");
+      stop_btn_id = stop_btn_id.split("-").slice(0, -1).join("-");
+      document
+        .getElementById(`${stop_btn_id}-play`)
+        .setAttribute("style", "display: block");
+      document.getElementById(stop_btn_id).pause();
+      document.getElementById(stop_btn_id).currentTime = 0;
     });
   });
 
