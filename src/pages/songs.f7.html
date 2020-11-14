@@ -201,7 +201,7 @@
         3: "Some texts 3",
       },
       chorus: "Some texts Chorus",
-      mp3: "path to music",
+      mp3: "../static/musicFiles/Faith.mp3",
       favorite: false,
     },
     2: {
@@ -214,7 +214,7 @@
         4: "Some texts 4",
       },
       chorus: "Some texts Chorus",
-      mp3: "path to music",
+      mp3: "../static/musicFiles/OurHelp.mp3",
       favorite: false,
     },
     3: {
@@ -225,21 +225,24 @@
         2: "SOme texts 2",
       },
       chorus: "Some texts Chorus",
-      mp3: "path to music",
+      mp3: "../static/musicFiles/Faith.mp3",
       favorite: false,
     },
   };
 
-  $$(document).on("page:init", function (e) {
+  $$(document).on("page:afterin", function (e) {
     let order_list = document.querySelector("ol");
     order_list.innerHTML = "";
     let keys = Object.keys(songs);
+
     keys.forEach((ele) => {
-      console.log("Keys:", songs[ele]);
+      // console.log("Keys:", songs[ele]);
 
       let title = songs[ele].title;
       let author = songs[ele].author;
+      let audio_id = title.split(" ").join("-");
       let stanzas = Object.keys(songs[ele].stanzas).length;
+      let music_file = songs[ele].mp3;
       let list_item = `
       <li>
         <div class="item-content">
@@ -254,13 +257,9 @@
           </a>
           <div class="item-media">
             <i class="f7-icons">heart</i>
-            <i class="f7-icons" onclick="playMe(event)" class="play"
-              >play</i
-            >
+            <i class="f7-icons play" id="${audio_id}-play">play</i>
             <audio
-              src="../static/musicFiles/Faith.mp3"
-              id="when-we-all"
-            ></audio>
+              src="${music_file}" id="${audio_id}"></audio>
           </div>
         </div>
       </li>
@@ -269,16 +268,12 @@
       order_list.insertAdjacentHTML("beforeend", list_item);
     });
     console.log("all song Page loaded fully:");
-    // Do something here when page loaded and initialized
-    $$("#play").on("click", function (e) {
-      document.getElementById("when-we-all").play();
-      console.log("play Clicked");
-      console.log(document.getElementById("when-we-all"));
-    });
 
-    function playMe(e) {
-      console.log("Play me clicked");
-    }
+    $$(".play").on("click", function (e) {
+      let play_btn_id = e.target.id;
+      play_btn_id = play_btn_id.split("-").slice(0, -1).join("-");
+      document.getElementById(play_btn_id).play();
+    });
   });
 
   // var app = new Framework7();
