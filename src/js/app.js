@@ -48,22 +48,22 @@ var app = new Framework7({
   },
 });
 
-app.on("pageInit", function (page) {
-  // do something on page init
-  console.log("Ollkjk", page);
-  // app.dialog.alert("hipopo");
+// app.on("pageInit", function (page) {
+//   // do something on page init
+//   console.log("Ollkjk", page.name);
+//   // app.dialog.alert("hipopo");
 
-  $$(".play").on("click", function (e) {
-    console.log("clicked");
-  });
+//   $$("#play2").on("click", function (e) {
+//     console.log("clicked");
+//   });
 
-  function play() {
-    alert("Ok");
-  }
-});
+//   function play() {
+//     alert("Ok");
+//   }
+// });
 
-$$(".play").on("click", function (e) {
-  console.log("clicked");
-});
+// $$(".play").on("click", function (e) {
+//   console.log("clicked");
+// });
 
-// app.dialog.alert("hi");
+// // app.dialog.alert("hi");

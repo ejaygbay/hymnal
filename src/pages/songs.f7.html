@@ -45,7 +45,7 @@
               </div>
             </div>
           </li>
-          <li>
+          <!-- <li>
             <div class="item-content">
               <a href="/single-song/">
                 <div class="item-inner">
@@ -180,18 +180,95 @@
                 <i class="f7-icons" class="play" id="play">play</i>
               </div>
             </div>
-          </li>
+          </li> -->
         </ol>
       </div>
     </div>
   </div>
 </template>
+
 <script>
   export default {};
   import $$ from "dom7";
 
-  $$(document).on("page:afterin", function (e) {
-    console.log("Page loaded fully");
+  let songs = {
+    1: {
+      title: "When we all get to heven",
+      author: "John Doe",
+      stanzas: {
+        1: "Some texts 1",
+        2: "SOme texts 2",
+        3: "Some texts 3",
+      },
+      chorus: "Some texts Chorus",
+      mp3: "path to music",
+      favorite: false,
+    },
+    2: {
+      title: "To God be the Glory",
+      author: "Melvin Palley",
+      stanzas: {
+        1: "Some texts 1",
+        2: "SOme texts 2",
+        3: "Some texts 3",
+        4: "Some texts 4",
+      },
+      chorus: "Some texts Chorus",
+      mp3: "path to music",
+      favorite: false,
+    },
+    3: {
+      title: "Faith of our father",
+      author: "Benson Kamada",
+      stanzas: {
+        1: "Some texts 1",
+        2: "SOme texts 2",
+      },
+      chorus: "Some texts Chorus",
+      mp3: "path to music",
+      favorite: false,
+    },
+  };
+
+  $$(document).on("page:init", function (e) {
+    let order_list = document.querySelector("ol");
+    order_list.innerHTML = "";
+    let keys = Object.keys(songs);
+    keys.forEach((ele) => {
+      console.log("Keys:", songs[ele]);
+
+      let title = songs[ele].title;
+      let author = songs[ele].author;
+      let stanzas = Object.keys(songs[ele].stanzas).length;
+      let list_item = `
+      <li>
+        <div class="item-content">
+          <a href="/single-song/">
+            <div class="item-inner">
+              <div class="item-title">
+                <div class="item-header">By: ${author}</div>
+                ${title}
+                <div class="item-footer">${stanzas} Stanzas</div>
+              </div>
+            </div>
+          </a>
+          <div class="item-media">
+            <i class="f7-icons">heart</i>
+            <i class="f7-icons" onclick="playMe(event)" class="play"
+              >play</i
+            >
+            <audio
+              src="../static/musicFiles/Faith.mp3"
+              id="when-we-all"
+            ></audio>
+          </div>
+        </div>
+      </li>
+    `;
+
+      order_list.insertAdjacentHTML("beforeend", list_item);
+    });
+    console.log("all song Page loaded fully:");
     // Do something here when page loaded and initialized
     $$("#play").on("click", function (e) {
       document.getElementById("when-we-all").play();
