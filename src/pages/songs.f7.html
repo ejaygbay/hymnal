@@ -35,7 +35,13 @@
               </a>
               <div class="item-media">
                 <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
+                <i class="f7-icons" onclick="playMe(event)" class="play"
+                  >play</i
+                >
+                <audio
+                  src="../static/musicFiles/Faith.mp3"
+                  id="when-we-all"
+                ></audio>
               </div>
             </div>
           </li>
@@ -171,7 +177,7 @@
               </a>
               <div class="item-media">
                 <i class="f7-icons">heart</i>
-                <i class="f7-icons" class="play">play</i>
+                <i class="f7-icons" class="play" id="play">play</i>
               </div>
             </div>
           </li>
@@ -182,15 +188,44 @@
 </template>
 <script>
   export default {};
-  // var app = new Framework7();
+  import $$ from "dom7";
 
+  $$(document).on("page:afterin", function (e) {
+    console.log("Page loaded fully");
+    // Do something here when page loaded and initialized
+    $$("#play").on("click", function (e) {
+      document.getElementById("when-we-all").play();
+      console.log("play Clicked");
+      console.log(document.getElementById("when-we-all"));
+    });
+
+    function playMe(e) {
+      console.log("Play me clicked");
+    }
+  });
+
+  // var app = new Framework7();
+  // // document.getElementById("play").innerHTML = "Hi";
+  // app.on("pageInit", function (page) {
+  //   // do something on page init
+  //   console.log("Ollkjk", page);
+  //   // app.dialog.alert("hipopo");
+
+  //   $$(".play").on("click", function (e) {
+  //     console.log("clicked");
+  //   });
+
+  //   function play() {
+  //     alert("Ok");
+  //   }
+  // });
   // var $$ = Dom7;
-  // $$(".play").on("click", function (e) {
-  //   console.log("hello");
-  //   app.dialog.alert("hi");
-  //   // $$(this)
-  //   //   .addClass("hello")
-  //   //   .attr("title", "world")
-  //   //   .insertAfter(".something-else");
+  // $$("#play").on("click", function (e) {
+
+  // app.dialog.alert("hi");
+  // $$(this)
+  //   .addClass("hello")
+  //   .attr("title", "world")
+  //   .insertAfter(".something-else");
   // });
 </script>

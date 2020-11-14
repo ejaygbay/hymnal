@@ -43,9 +43,27 @@ var app = new Framework7({
       if (f7.device.cordova) {
         // Init cordova APIs (see cordova-app.js)
         cordovaApp.init(f7);
-
-        console.log("hihihihi");
       }
     },
   },
 });
+
+app.on("pageInit", function (page) {
+  // do something on page init
+  console.log("Ollkjk", page);
+  // app.dialog.alert("hipopo");
+
+  $$(".play").on("click", function (e) {
+    console.log("clicked");
+  });
+
+  function play() {
+    alert("Ok");
+  }
+});
+
+$$(".play").on("click", function (e) {
+  console.log("clicked");
+});
+
+// app.dialog.alert("hi");

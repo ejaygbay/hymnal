@@ -2,19 +2,6 @@
   <div class="page" data-name="single-songs">
     <div class="navbar">
       <div class="navbar-bg"></div>
-      <div class="navbar-inner sliding">
-        <div class="left">
-          <a href="#" class="link back">
-            <i class="icon icon-back"></i>
-            <span class="if-not-md">Back</span>
-          </a>
-        </div>
-        <div class="title">When We All Get To Heaven</div>
-      </div>
-    </div>
-
-    <div class="navbar">
-      <div class="navbar-bg"></div>
       <div class="navbar-inner">
         <div class="left">
           <a href="#" class="link back">
@@ -32,11 +19,8 @@
                   <i class="f7-icons">heart</i>
                 </a>
                 <a href="#" class="tab-link tab-link-active">
-                  <i class="f7-icons" onclick="play()">play</i>
+                  <i class="f7-icons" id="play2">play</i>
                 </a>
-                <!-- <a href="#" class="tab-link">
-                  <i class="f7-icons">square_pencil</i>
-                </a> -->
               </div>
             </div>
           </div>
@@ -46,12 +30,7 @@
 
     <!-- Main page content -->
     <div class="page-content">
-      <audio src="../static/OurHelp.mp3" controls>O God In Ages</audio>
-
-      <audio controls>
-        <source src="../static/musicFiles/Faith.mp3" />
-        Your browser does not support the audio element.
-      </audio>
+      <audio src="../static/OurHelp.mp3" id="play-song">O God In Ages</audio>
 
       <!-- Block Title -->
       <div class="block-title">Stanza 1</div>
@@ -98,7 +77,15 @@
 </template>
 <script>
   export default {};
-  function play() {
-    alert("Ok");
-  }
+  import $$ from "dom7";
+
+  $$(document).on("page:afterin", function (e) {
+    console.log("Page loaded fully");
+    // Do something here when page loaded and initialized
+    $$("#play2").on("click", function (e) {
+      document.getElementById("play-song").play();
+      console.log("play Clicked");
+      // console.log(document.getElementById("play-song"));
+    });
+  });
 </script>
