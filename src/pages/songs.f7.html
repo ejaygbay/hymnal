@@ -110,16 +110,29 @@
     });
     console.log("all song Page loaded fully:");
 
+    let previous_play_id;
     $$(".play").on("click", function (e) {
       let play_btn_id = e.target.id;
       document
         .getElementById(play_btn_id)
         .setAttribute("style", "display: none");
+
       play_btn_id = play_btn_id.split("-").slice(0, -1).join("-");
       document
         .getElementById(`${play_btn_id}-stop`)
         .setAttribute("style", "display: block");
-      document.getElementById(play_btn_id).play();
+
+      stopOtherSongs(previous_play_id, (data) => {
+        previous_play_id = play_btn_id;
+
+        let timer = setTimeout(function () {
+          document.getElementById(play_btn_id).play();
+          document
+            .getElementById(play_btn_id)
+            .setAttribute("class", "is-playing");
+          clearTimeout(timer);
+        }, 1000);
+      });
     });
 
     $$(".stop").on("click", function (e) {
@@ -133,8 +146,29 @@
         .setAttribute("style", "display: block");
       document.getElementById(stop_btn_id).pause();
       document.getElementById(stop_btn_id).currentTime = 0;
+      document.getElementById(`${stop_btn_id}`).removeAttribute("class");
     });
   });
+
+  // Stop current playing song when play btn is clicked
+  const stopOtherSongs = (play_btn_id, callback) => {
+    if (document.querySelector(".is-playing")) {
+      document.querySelector(".is-playing").pause();
+      document.querySelector(".is-playing").currentTime = 0;
+      document.getElementById(`${play_btn_id}`).removeAttribute("class");
+
+      document
+        .getElementById(`${play_btn_id}-play`)
+        .setAttribute("style", "display: block");
+
+      document
+        .getElementById(`${play_btn_id}-stop`)
+        .setAttribute("style", "display: none");
+      return callback("done");
+    } else {
+      return callback("done");
+    }
+  };
 
   // var app = new Framework7();
   // // document.getElementById("play").innerHTML = "Hi";
