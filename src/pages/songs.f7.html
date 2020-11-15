@@ -41,7 +41,7 @@
         3: "Some texts 3",
       },
       chorus: "Some texts Chorus",
-      mp3: "../static/musicFiles/Faith.mp3",
+      mp3: "../static/musicFiles/WhenWeAllGettoHeaven.mp3",
       favorite: false,
     },
     2: {
@@ -54,7 +54,7 @@
         4: "Some texts 4",
       },
       chorus: "Some texts Chorus",
-      mp3: "../static/musicFiles/OurHelp.mp3",
+      mp3: "../static/musicFiles/ToGodBetheGlory.mp3",
       favorite: false,
     },
     3: {
@@ -65,7 +65,7 @@
         2: "SOme texts 2",
       },
       chorus: "Some texts Chorus",
-      mp3: "../static/musicFiles/Faith.mp3",
+      mp3: "../static/musicFiles/FaithofOurFathers.mp3",
       favorite: false,
     },
   };
@@ -75,9 +75,10 @@
     order_list.innerHTML = "";
     let keys = Object.keys(songs);
 
+    /**
+     * Loop through object and display all the songs
+     */
     keys.forEach((ele) => {
-      // console.log("Keys:", songs[ele]);
-
       let title = songs[ele].title;
       let author = songs[ele].author;
       let audio_id = title.split(" ").join("-");
@@ -108,8 +109,10 @@
 
       order_list.insertAdjacentHTML("beforeend", list_item);
     });
-    console.log("all song Page loaded fully:");
 
+    /**
+     * Play song when play icon is clicked
+     */
     let previous_play_id;
     $$(".play").on("click", function (e) {
       let play_btn_id = e.target.id;
@@ -122,6 +125,9 @@
         .getElementById(`${play_btn_id}-stop`)
         .setAttribute("style", "display: block");
 
+      /**
+       * Stop current song when another play icon is clicked
+       */
       stopOtherSongs(previous_play_id, (data) => {
         previous_play_id = play_btn_id;
 
@@ -131,10 +137,29 @@
             .getElementById(play_btn_id)
             .setAttribute("class", "is-playing");
           clearTimeout(timer);
+
+          /**
+           * Change stop icon to play icon and remove 'is-playing'
+           * class when music finishes
+           */
+          $$(".is-playing").on("ended", function (e) {
+            document
+              .getElementById(`${play_btn_id}-play`)
+              .setAttribute("style", "display: block");
+
+            document
+              .getElementById(`${play_btn_id}-stop`)
+              .setAttribute("style", "display: none");
+
+            document.getElementById(`${play_btn_id}`).removeAttribute("class");
+          });
         }, 1000);
       });
     });
 
+    /**
+     * Stop song when the stop icon is clicked
+     */
     $$(".stop").on("click", function (e) {
       let stop_btn_id = e.target.id;
       document
@@ -169,29 +194,4 @@
       return callback("done");
     }
   };
-
-  // var app = new Framework7();
-  // // document.getElementById("play").innerHTML = "Hi";
-  // app.on("pageInit", function (page) {
-  //   // do something on page init
-  //   console.log("Ollkjk", page);
-  //   // app.dialog.alert("hipopo");
-
-  //   $$(".play").on("click", function (e) {
-  //     console.log("clicked");
-  //   });
-
-  //   function play() {
-  //     alert("Ok");
-  //   }
-  // });
-  // var $$ = Dom7;
-  // $$("#play").on("click", function (e) {
-
-  // app.dialog.alert("hi");
-  // $$(this)
-  //   .addClass("hello")
-  //   .attr("title", "world")
-  //   .insertAfter(".something-else");
-  // });
 </script>
