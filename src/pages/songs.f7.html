@@ -55,7 +55,7 @@
       },
       chorus: "Some texts Chorus",
       mp3: "../static/musicFiles/ToGodBetheGlory.mp3",
-      favorite: false,
+      favorite: true,
     },
     3: {
       title: "Faith of our father",
@@ -86,8 +86,9 @@
       let audio_id = title.split(" ").join("-");
       let stanzas = Object.keys(songs[ele].stanzas).length;
       let music_file = songs[ele].mp3;
+      let favorite = songs[ele].favorite;
       let list_item = `
-      <li>
+      <li id=${ele}>
         <div class="item-content">
           <a href="/single-song/">
             <div class="item-inner">
@@ -99,7 +100,8 @@
             </div>
           </a>
           <div class="item-media">
-            <i class="f7-icons">heart</i>
+            <i class="f7-icons favorite" id="${audio_id}-like">heart</i>
+            <i class="f7-icons favorite" id="${audio_id}-unlike">heart_fill</i>
             <i class="f7-icons play" id="${audio_id}-play">play_circle</i>
             <i class="f7-icons stop" id="${audio_id}-stop" style="display:none">stop_circle</i>
             <audio
@@ -108,8 +110,15 @@
         </div>
       </li>
     `;
-
       order_list.insertAdjacentHTML("beforeend", list_item);
+
+      if (favorite) {
+        document.getElementById(`${audio_id}-like`).style = "display: none";
+        document.getElementById(`${audio_id}-unlike`).style = "display: block";
+      } else {
+        document.getElementById(`${audio_id}-like`).style = "display: block";
+        document.getElementById(`${audio_id}-unlike`).style = "display: none";
+      }
     });
 
     /**
@@ -174,6 +183,30 @@
       document.getElementById(stop_btn_id).pause();
       document.getElementById(stop_btn_id).currentTime = 0;
       document.getElementById(`${stop_btn_id}`).removeAttribute("class");
+    });
+
+    // $$("li").click(function (e) {
+    //   console.log("li was clicked:::", e.target);
+    // });
+    /**
+     * Toggle between like and unlike
+     */
+    $$(".favorite").on("click", function (e) {
+      let favorite_icon_id = e.target.id;
+      let last_word = favorite_icon_id.split("-").pop();
+      favorite_icon_id = favorite_icon_id.split("-").slice(0, -1).join("-");
+
+      if (last_word === "like") {
+        document.getElementById(`${favorite_icon_id}-like`).style =
+          "display: none";
+        document.getElementById(`${favorite_icon_id}-unlike`).style =
+          "display: block";
+      } else {
+        document.getElementById(`${favorite_icon_id}-like`).style =
+          "display: block";
+        document.getElementById(`${favorite_icon_id}-unlike`).style =
+          "display: none";
+      }
     });
   });
 
