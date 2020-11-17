@@ -21,7 +21,7 @@
     <!-- Main page content -->
     <div class="page-content">
       <div class="list">
-        <ol></ol>
+        <ol id="songs-ol"></ol>
       </div>
     </div>
   </div>
@@ -70,10 +70,12 @@
     },
   };
 
-  $$(document).on("page:afterin", function (e) {
-    let order_list = document.querySelector("ol");
+  // $$(document).on("page:init", function (e) {
+  $$(document).on("page:init", '.page[data-name="songs"]', function (e, page) {
+    let order_list = document.querySelector("#songs-ol");
     order_list.innerHTML = "";
     let keys = Object.keys(songs);
+    console.log("All songs loaded", e, page);
 
     /**
      * Loop through object and display all the songs
