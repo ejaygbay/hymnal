@@ -71,56 +71,7 @@
   };
 
   // $$(document).on("page:init", function (e) {
-  $$(document).on("page:init", '.page[data-name="songs"]', function (e, page) {
-    let order_list = document.querySelector("#songs-ol");
-    order_list.innerHTML = "";
-    let keys = Object.keys(songs);
-    console.log("All songs loaded", e, page);
-
-    /**
-     * Loop through object and display all the songs
-     */
-    keys.forEach((ele) => {
-      let title = songs[ele].title;
-      let author = songs[ele].author;
-      let audio_id = title.split(" ").join("-");
-      let stanzas = Object.keys(songs[ele].stanzas).length;
-      let music_file = songs[ele].mp3;
-      let favorite = songs[ele].favorite;
-      let list_item = `
-      <li id=${ele}>
-        <div class="item-content">
-          <a href="/single-song/">
-            <div class="item-inner">
-              <div class="item-title">
-                <div class="item-header">By: ${author}</div>
-                ${title}
-                <div class="item-footer">${stanzas} Stanzas</div>
-              </div>
-            </div>
-          </a>
-          <div class="item-media">
-            <i class="f7-icons favorite" id="${audio_id}-like">heart</i>
-            <i class="f7-icons favorite" id="${audio_id}-unlike">heart_fill</i>
-            <i class="f7-icons play" id="${audio_id}-play">play_circle</i>
-            <i class="f7-icons stop" id="${audio_id}-stop" style="display:none">stop_circle</i>
-            <audio
-              src="${music_file}" id="${audio_id}"></audio>
-          </div>
-        </div>
-      </li>
-    `;
-      order_list.insertAdjacentHTML("beforeend", list_item);
-
-      if (favorite) {
-        document.getElementById(`${audio_id}-like`).style = "display: none";
-        document.getElementById(`${audio_id}-unlike`).style = "display: block";
-      } else {
-        document.getElementById(`${audio_id}-like`).style = "display: block";
-        document.getElementById(`${audio_id}-unlike`).style = "display: none";
-      }
-    });
-
+  $$(document).on("page:afterin", function (e) {
     /**
      * Play song when play icon is clicked
      */
@@ -173,6 +124,7 @@
      */
     $$(".stop").on("click", function (e) {
       let stop_btn_id = e.target.id;
+      console.log("stop song:", stop_btn_id);
       document
         .getElementById(stop_btn_id)
         .setAttribute("style", "display: none");
@@ -184,33 +136,11 @@
       document.getElementById(stop_btn_id).currentTime = 0;
       document.getElementById(`${stop_btn_id}`).removeAttribute("class");
     });
-
-    // $$("li").click(function (e) {
-    //   console.log("li was clicked:::", e.target);
-    // });
-    /**
-     * Toggle between like and unlike
-     */
-    $$(".favorite").on("click", function (e) {
-      let favorite_icon_id = e.target.id;
-      let last_word = favorite_icon_id.split("-").pop();
-      favorite_icon_id = favorite_icon_id.split("-").slice(0, -1).join("-");
-
-      if (last_word === "like") {
-        document.getElementById(`${favorite_icon_id}-like`).style =
-          "display: none";
-        document.getElementById(`${favorite_icon_id}-unlike`).style =
-          "display: block";
-      } else {
-        document.getElementById(`${favorite_icon_id}-like`).style =
-          "display: block";
-        document.getElementById(`${favorite_icon_id}-unlike`).style =
-          "display: none";
-      }
-    });
   });
 
-  // Stop current playing song when play btn is clicked
+  /**
+   * Stop current playing song when play btn is clicked
+   */
   const stopOtherSongs = (play_btn_id, callback) => {
     if (document.querySelector(".is-playing")) {
       document.querySelector(".is-playing").pause();

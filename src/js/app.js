@@ -48,22 +48,167 @@ var app = new Framework7({
   },
 });
 
-// app.on("pageInit", function (page) {
-//   // do something on page init
-//   console.log("Ollkjk", page.name);
-//   // app.dialog.alert("hipopo");
+let songs = {
+  1: {
+    title: "When we all get to heven",
+    author: "John Doe",
+    stanzas: {
+      1: "Some texts 1",
+      2: "SOme texts 2",
+      3: "Some texts 3",
+    },
+    chorus: "Some texts Chorus",
+    mp3: "../static/musicFiles/WhenWeAllGettoHeaven.mp3",
+    favorite: true,
+  },
+  2: {
+    title: "To God be the Glory",
+    author: "Melvin Palley",
+    stanzas: {
+      1: "Some texts 1",
+      2: "SOme texts 2",
+      3: "Some texts 3",
+      4: "Some texts 4",
+    },
+    chorus: "Some texts Chorus",
+    mp3: "../static/musicFiles/ToGodBetheGlory.mp3",
+    favorite: true,
+  },
+  3: {
+    title: "Faith of our father",
+    author: "Benson Kamada",
+    stanzas: {
+      1: "Some texts 1",
+      2: "SOme texts 2",
+    },
+    chorus: "Some texts Chorus",
+    mp3: "../static/musicFiles/FaithofOurFathers.mp3",
+    favorite: false,
+  },
+};
 
-//   $$("#play2").on("click", function (e) {
-//     console.log("clicked");
-//   });
+let order_list_ele;
+app.on("pageInit", function (page) {
+  if (page.name === "songs") {
+    order_list_ele = document.querySelector("#songs-ol");
+    order_list_ele.innerHTML = "";
+    displaySongs(page.name);
+    console.log("songs");
+  } else if (page.name === "favorite") {
+    order_list_ele = document.querySelector("#favorite-ol");
+    order_list_ele.innerHTML = "";
+    displaySongs(page.name);
+    console.log("Fvorite");
+  }
 
-//   function play() {
-//     alert("Ok");
-//   }
-// });
+  /**
+   * Toggle between like and unlike
+   */
+  $$(".favorite").on("click", function (e) {
+    let favorite_icon_id = e.target.id;
+    let last_word = favorite_icon_id.split("-").pop();
+    favorite_icon_id = favorite_icon_id.split("-").slice(0, -1).join("-");
 
-// $$(".play").on("click", function (e) {
-//   console.log("clicked");
-// });
+    if (last_word === "like") {
+      document.getElementById(`${favorite_icon_id}-like`).style =
+        "display: none";
+      document.getElementById(`${favorite_icon_id}-unlike`).style =
+        "display: block";
+    } else {
+      document.getElementById(`${favorite_icon_id}-like`).style =
+        "display: block";
+      document.getElementById(`${favorite_icon_id}-unlike`).style =
+        "display: none";
+    }
+  });
+});
 
-// // app.dialog.alert("hi");
+/**
+ * Display songs when the songs page loads
+ */
+const displaySongs = (page) => {
+  let keys = Object.keys(songs);
+  /**
+   * Loop through object and display all the songs
+   */
+  keys.forEach((ele) => {
+    let title = songs[ele].title;
+    let author = songs[ele].author;
+    let audio_id = title.split(" ").join("-");
+    let stanzas = Object.keys(songs[ele].stanzas).length;
+    let music_file = songs[ele].mp3;
+    let favorite = songs[ele].favorite; // true or false
+
+    if (page === "songs") {
+      let list_item = `
+      <li id=${ele}>
+        <div class="item-content">
+          <a href="/single-song/">
+            <div class="item-inner">
+              <div class="item-title">
+                <div class="item-header">By: ${author}</div>
+                ${title}
+                <div class="item-footer">${stanzas} Stanzas</div>
+              </div>
+            </div>
+          </a>
+          <div class="item-media">
+            <i class="f7-icons favorite" id="${audio_id}-like">heart</i>
+            <i class="f7-icons favorite" id="${audio_id}-unlike">heart_fill</i>
+            <i class="f7-icons play" id="${audio_id}-play">play_circle</i>
+            <i class="f7-icons stop" id="${audio_id}-stop" style="display:none">stop_circle</i>
+            <audio
+              src="${music_file}" id="${audio_id}"></audio>
+          </div>
+        </div>
+      </li>
+    `;
+      order_list_ele.insertAdjacentHTML("beforeend", list_item);
+      if (favorite) {
+        console.log("yes favorite", audio_id);
+        document.getElementById(`${audio_id}-like`).style = "display: none";
+        document.getElementById(`${audio_id}-unlike`).style = "display: block";
+      } else {
+        console.log("no favorite", audio_id);
+        document.getElementById(`${audio_id}-like`).style = "display: block";
+        document.getElementById(`${audio_id}-unlike`).style = "display: none";
+      }
+    } else if (page === "favorite") {
+      if (favorite) {
+        let list_item = `
+          <li id=${ele}>
+            <div class="item-content">
+              <a href="/single-song/">
+                <div class="item-inner">
+                  <div class="item-title">
+                    <div class="item-header">By: ${author}</div>
+                    ${title}
+                    <div class="item-footer">${stanzas} Stanzas</div>
+                  </div>
+                </div>
+              </a>
+              <div class="item-media">
+                <i class="f7-icons remove-from-favorite" id="${audio_id}-remove">xmark_circle</i>
+                <i class="f7-icons favorite-play" id="${audio_id}-favorite_play">play_circle</i>
+                <i class="f7-icons favorite-stop" id="${audio_id}-favorite_stop" style="display:none">stop_circle</i>
+                <audio
+                  src="${music_file}" id="${audio_id}"></audio>
+              </div>
+            </div>
+          </li>
+        `;
+        order_list_ele.insertAdjacentHTML("beforeend", list_item);
+      }
+
+      // document.querySelectorAll(".remove-from-favorite").forEach((ele) => {
+      //   ele.style = "display: block";
+      // });
+
+      // document.querySelectorAll(".favorite").forEach((ele) => {
+      //   ele.style = "display: none";
+      // });
+    } else {
+      console.log("other pages", page);
+    }
+  });
+};

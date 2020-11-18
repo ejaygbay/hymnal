@@ -21,114 +21,110 @@
     <!-- Main page content -->
     <div class="page-content">
       <div class="list">
-        <ol>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">xmark_circle</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">xmark_circle</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">xmark_circle</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">xmark_circle</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">xmark_circle</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="item-content">
-              <a href="/single-song/">
-                <div class="item-inner">
-                  <div class="item-title">
-                    <div class="item-header">By: Jonh Doe</div>
-                    When we all get to heaven
-                    <div class="item-footer">4 Stanzas</div>
-                  </div>
-                </div>
-              </a>
-              <div class="item-media">
-                <i class="f7-icons">xmark_circle</i>
-                <i class="f7-icons" class="play">play</i>
-              </div>
-            </div>
-          </li>
-        </ol>
+        <ol id="favorite-ol"></ol>
       </div>
     </div>
   </div>
 </template>
 <script>
   export default {};
+  import $$ from "dom7";
+
+  $$(document).on("page:afterin", function (e) {
+    /**
+     * Play song when play icon is clicked
+     */
+    let previous_play_id;
+    $$(".favorite-play").on("click", function (e) {
+      let play_btn_id = e.target.id;
+      document
+        .getElementById(play_btn_id)
+        .setAttribute("style", "display: none");
+
+      play_btn_id = play_btn_id.split("-").slice(0, -1).join("-");
+      document
+        .getElementById(`${play_btn_id}-favorite_stop`)
+        .setAttribute("style", "display: block");
+
+      /**
+       * Stop current song when another play icon is clicked
+       */
+      stopOtherSongs(previous_play_id, (data) => {
+        previous_play_id = play_btn_id;
+
+        let timer = setTimeout(function () {
+          document.getElementById(play_btn_id).play();
+          document
+            .getElementById(play_btn_id)
+            .setAttribute("class", "is-playing");
+          clearTimeout(timer);
+
+          /**
+           * Change stop icon to play icon and remove 'is-playing'
+           * class when music finishes
+           */
+          $$(".is-playing").on("ended", function (e) {
+            document
+              .getElementById(`${play_btn_id}-favorite_play`)
+              .setAttribute("style", "display: block");
+
+            document
+              .getElementById(`${play_btn_id}-favorite_stop`)
+              .setAttribute("style", "display: none");
+
+            document.getElementById(`${play_btn_id}`).removeAttribute("class");
+          });
+        }, 1000);
+      });
+    });
+
+    /**
+     * Stop song when the stop icon is clicked
+     */
+    $$(".favorite-stop").on("click", function (e) {
+      let stop_btn_id = e.target.id;
+      console.log("stop song:", stop_btn_id);
+      document
+        .getElementById(stop_btn_id)
+        .setAttribute("style", "display: none");
+      stop_btn_id = stop_btn_id.split("-").slice(0, -1).join("-");
+      document
+        .getElementById(`${stop_btn_id}-play`)
+        .setAttribute("style", "display: block");
+      document.getElementById(stop_btn_id).pause();
+      document.getElementById(stop_btn_id).currentTime = 0;
+      document.getElementById(`${stop_btn_id}`).removeAttribute("class");
+    });
+
+    /**
+     * Remove song from favorite list
+     */
+    $$(".remove-from-favorite").on("click", function (e) {
+      let favorite_ele_id = e.target.id;
+      favorite_ele_id = favorite_ele_id.split("-").slice(0, -1).join("-");
+      document.getElementById(favorite_ele_id).style = "display: none";
+    });
+  });
+
+  /**
+   * Stop current playing song when play btn is clicked
+   */
+  const stopOtherSongs = (play_btn_id, callback) => {
+    if (document.querySelector(".is-playing")) {
+      document.querySelector(".is-playing").pause();
+      document.querySelector(".is-playing").currentTime = 0;
+      document.getElementById(`${play_btn_id}`).removeAttribute("class");
+
+      document
+        .getElementById(`${play_btn_id}-favorite_play`)
+        .setAttribute("style", "display: block");
+
+      document
+        .getElementById(`${play_btn_id}-favorite_stop`)
+        .setAttribute("style", "display: none");
+      return callback("done");
+    } else {
+      return callback("done");
+    }
+  };
 </script>
