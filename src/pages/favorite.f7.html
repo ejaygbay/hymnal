@@ -31,6 +31,10 @@
   import $$ from "dom7";
 
   $$(document).on("page:afterin", function (e) {
+    let obj = {
+      1: { song: "hi" },
+      2: { name: "john" },
+    };
     /**
      * Play song when play icon is clicked
      */
@@ -100,8 +104,7 @@
      * Remove song from favorite list
      */
     $$(".remove-from-favorite").on("click", function (e) {
-      let favorite_ele_id = e.target.id;
-      favorite_ele_id = favorite_ele_id.split("-").slice(0, -1).join("-");
+      let favorite_ele_id = e.target.parentNode.offsetParent.id;
       document.getElementById(favorite_ele_id).style = "display: none";
     });
   });

@@ -141,7 +141,7 @@ const displaySongs = (page) => {
 
     if (page === "songs") {
       let list_item = `
-      <li id=${ele}>
+      <li id=song-${ele}>
         <div class="item-content">
           <a href="/single-song/">
             <div class="item-inner">
@@ -176,7 +176,7 @@ const displaySongs = (page) => {
     } else if (page === "favorite") {
       if (favorite) {
         let list_item = `
-          <li id=${ele}>
+          <li id=favorite-${ele}>
             <div class="item-content">
               <a href="/single-song/">
                 <div class="item-inner">
